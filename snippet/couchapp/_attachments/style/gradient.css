@@ -1,0 +1,68 @@
+h1.gradient {
+	font-size:300%;
+	line-height:1em;
+	color:black;
+	font-weight:bold;
+	letter-spacing:-.05em;
+	margin:.6em 0;
+	position:relative;	
+}
+
+h2.gradient {
+	font-size:260%;
+	color:#0079b6;
+	font-weight:bold;
+	letter-spacing:-.05em;
+	position:relative;
+	margin:.6em 0;
+	padding-top:1px; /* use top padding to adjust the start of the gradient  */
+	width:100%;
+}
+
+h3.gradient {
+	font-size:240%;
+	color:#7365a0;
+	font-weight:bold;
+	text-transform:uppercase;
+	letter-spacing:-.05em;
+	padding-top:3px;
+	position:relative;
+	margin:.6em 0;
+	width:100%;
+}
+h4.gradient {
+	font-size:220%;
+	color:#dc5b24;
+	font-weight:normal;
+	letter-spacing:-.05em;
+	position:relative;
+	margin:.6em 0;
+	padding-top:1px;
+	width:100%;
+}
+
+h1.gradient span, h2.gradient span, h3.gradient span, h4.gradient span{
+	position:absolute;
+	display:block;
+	top:0;
+	left:0;
+	height:100%;
+	width:100%;
+	background:url(../images/gradient_1.png) repeat-x;
+}
+
+h1.gradient span, h3.gradient span{background:url(../images/gradient_2.png) repeat-x;}
+
+* html h1 span, * html h3 span{
+	background-color:#fff;
+	background-color:transparent;
+	background-image: url(none.gif);
+}
+
+* html h2 span, * html h4 span {
+	background-color:#fff;
+	background-color:transparent;
+	background-image: url(none.gif);
+}
+
+

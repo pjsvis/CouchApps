@@ -1,0 +1,421 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<style type='text/css'>
+
+	body {
+		margin-top: 40px;
+		text-align: center;
+		font-size: 14px;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		}
+
+	#calendar {
+		width: 600px;
+		margin: 0 auto;
+		text-align: left;
+		}
+			
+			
+			.clearfix {
+				_height:1%;
+				zoom:1;
+			}
+			.clearfix:after {
+				content:".";
+				visibility:hidden;
+				display:block;
+				clear:both;
+				height:0;
+			}
+			
+			.tagbox * {
+				margin: 0;
+				padding: 0;
+				outline: none;
+			}
+			
+			.tagbox {
+				border: 1px solid #000;
+				margin: 10px 0;
+				min-height: 60px;
+				cursor: text;
+
+			}
+
+</style>
+<link rel="stylesheet" href="style/main.css" type="text/css">
+<link media="only screen and (max-device-width: 480px)" 
+        href="style/iphone.css" type="text/css" rel="stylesheet" />
+<link rel='stylesheet' type='text/css' href='./fullcalendar.css' />
+<link rel="stylesheet" type="text/css" href="./jquery.autocomplete.css" />
+<link rel="stylesheet" href="./tags.css" type="text/css" media="screen" title="no title" charset="utf-8">		
+<link rel="stylesheet" href="./tagcolors.css" type="text/css" media="screen" title="no title" charset="utf-8">		
+
+<link type="text/css" href="http://jqueryui.com/latest/themes/base/ui.all.css" rel="stylesheet" />
+
+<script src="/_utils/script/json2.js"></script>
+<script type='text/javascript' src="/_utils/script/jquery.js"></script>
+<script type='text/javascript' src="./ui.core.js"></script>
+<script type='text/javascript' src="./ui.draggable.js"></script>
+<script type='text/javascript' src='./fullcalendar.js'></script>
+<script type="text/javascript" src="./ui.resizable.js"></script>
+<script type="text/javascript" src="./ui.dialog.js"></script>
+<style type="text/css">@import "./jquery.dateentry.css";</style> 
+<script type="text/javascript" src="./jquery.dateentry.js"></script>
+<script type="text/javascript" src="./jquery.autocomplete.js"></script>
+<style type="text/css">@import "./jquery.timeentry.css";</style> 
+<script type="text/javascript" src="./jquery.timeentry.js"></script>
+<script type="text/javascript" src="./ui.datepicker.js"></script>
+<script type="text/javascript" src="./jquery.tagbox.js"></script>
+<script src="/_utils/script/jquery.couch.js"></script>
+<script src="vendor/couchapp/jquery.couchapp.js"></script>
+<script type='text/javascript'>
+
+  $(document).ready(function() {
+       $("#dialog").dialog({ autoOpen: false, width:450});
+       $("#startdate").dateEntry(); 
+       $("#starttime").timeEntry();
+       $("#enddate").dateEntry();
+       $("#endtime").timeEntry();
+  });
+
+</script>
+</head>
+<body>
+<form id="login" action="#">
+  <div align="left">
+  <label for="title">Enter your email</label> <input type="text" name="user" value="" id="user"> <input id="lbutton" type="submit" value="login">
+  </div>
+</form>
+<table border="0">
+<tr>
+<th width="150">
+<th width=100%>
+<tr>
+<td valign="top">
+<div type="text" id="datepicker"></div>
+<p>
+Other Calendars to View:
+<input id="othercals" type="textarea" class="tagbox addressable" value="" />
+<td>
+<div id='calendar'></div>
+</table>
+<div id="dialog" title="Entry">
+<div align="left">
+      <form id="event" action="#">
+        <p><label for="title">what</label> <input type="text" name="title" value="" id="title">
+        </p>
+        <p><label for="startdate">when</label>
+          <input type="text" name="startdate" value="" id="startdate"size=10><input type="text" name="starttime" value="" id="starttime"size=8></p>
+        <p><label for="enddate">to</label>
+          <input type="text" name="enddate" value="" id="enddate"size=10>
+          <input type="text" name="endtime" value="" id="endtime"size=8></p>
+        </p>
+        <p><label for="where">where</label> <input type="text" name="where" value="" id="where">
+        </p>
+        <p><label for="host">host(s)</label> <input type="text" name="hosts" value="" id="hosts" class="addressable">
+        <p><label for="who">attendees</label> <input type="text" name="attendees" value="" id="attendees" class="addressable">
+        </p>
+        <p><label for="description">description</label> <input type="text" name="description" value="" id="description">
+        </p>
+        <p><input type="submit" value="save">
+        </p>
+        </p>
+      </form>
+</div>
+</div>
+  <script type="text/javascript" charset="utf-8">
+  var c_xhr;
+  var current_event = {};
+  var user_profile_doc = {};
+  var all_users = [];
+  var class_colors = ["red", "green", "blue", "yellow", "orange"];
+  var cal_colors = {};
+  var other_cals = [];
+  var drawtimeout;
+  var ignoreViewEvent = true;
+  var user_profile_doc = {};
+  function trim(str) {
+    return str.replace(/^\s*/, "").replace(/\s*$/, "");
+  }
+  function split_trim(valstring, splitChars) {
+    var retArray = [];
+    if (!(valstring === undefined || valstring == "")) 
+         valstring.split(splitChars).forEach(
+          function(str){
+            var trimmed = trim(str);
+            if (trimmed != "" )
+              retArray.push(trimmed);
+            });
+    return retArray;
+  }
+  function refresh_current_event_ui() {
+      var doc = current_event.doc || {};
+      $("#title").val(current_event.title || "");
+      $("#startdate").dateEntry('setDate', current_event.start);
+      $("#starttime").timeEntry('setTime', current_event.start);
+      $("#enddate").dateEntry('setDate', current_event.end);
+      $("#endtime").timeEntry('setTime', current_event.end);
+      $("#where").val(doc.where || "");
+      $("#description").val(doc.description || "");
+      $("#hosts").val(doc.hosts ? doc.hosts.join(", ") : "");
+      $("#attendees").val(doc.attendees ? doc.attendees.join(", ") : "");
+  }
+  function combine_dt(d,t) {
+    return d.setHours(t.getHours(), t.getMinutes(), t.getSeconds(), 0);
+  }
+  function save_current_event(app) {
+    try {
+      var doc = current_event.doc || {type:"event"};
+      doc.title = $("#title").val();
+      $("#starttime").timeEntry('getTime')
+      doc.start = combine_dt($("#startdate").dateEntry('getDate'),
+          $("#starttime").timeEntry('getTime'));
+      doc.end = combine_dt($("#enddate").dateEntry('getDate'),
+          $("#endtime").timeEntry('getTime'));
+      doc.where = $("#where").val();
+      doc.hosts = split_trim($("#hosts").val(), ",");
+      doc.attendees = split_trim($("#attendees").val(), ",");
+      doc.description = $("#description").val();
+      app.db.saveDoc(doc);
+    } catch (error) {
+      alert("Save failed: " + error.toString());
+    }
+  }
+  
+  $.CouchApp(function(app) {
+    
+    function uniqueBy(array, fun) {
+      var unique = [];
+      var keyMap = {};
+      $.each(array, function(i, item) {
+        var key = fun(item).toString();
+        if (!keyMap[key]) {
+          unique.push(item);
+          keyMap[key] = true;
+        }
+      });
+      return unique;
+    };
+    
+    $('#calendar').fullCalendar({
+      editable: true,
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,basicWeek,basicDay'
+      },
+      events: function(start, end, callback) {
+        app.db.info({success: function(db_info) {
+          if (c_xhr) {
+            c_xhr.onreadystatechange = null;
+            c_xhr.abort();
+          }
+          c_xhr = jQuery.ajaxSettings.xhr();
+          c_xhr.open("GET", app.db.uri+"_changes?feed=longpoll&since="+db_info.update_seq, true);
+          c_xhr.send("");
+          c_xhr.onreadystatechange = function() {
+              if(c_xhr.readyState == 4) {
+                setTimeout(function() {
+                $('#calendar').fullCalendar('refetchEvents');
+              }, 100);
+            }
+          };
+          var user_name = trim($("#user").val());
+          var allcals = [];
+          for (var i=0; i < other_cals.length; i++) {
+            var calname = other_cals[i];
+            allcals.push(calname);
+            var mod = (i % class_colors.length);
+            cal_colors[calname] = class_colors[mod];
+          };
+          allcals.push(user_name);
+          if (user_name) {
+            cal_colors[user_name] = "plain";            
+          }
+          // apply cal colors to tagboxes in order
+          var k = 0;
+          $(".tagbox span.tag").each(function() {
+            $(this).addClass(class_colors[k]);
+            k++;
+          });
+          function add_user_cals(cals, uniqueEvents) {
+            if (cals.length == 0) {
+              callback(uniqueEvents);
+              return;
+            }
+            var name = cals.pop();
+            var cal_color = cal_colors[name];
+            app.view("by_user_date",{
+              startkey : [name, start.getFullYear(), start.getMonth()],
+              endkey : [name, end.getFullYear(), end.getMonth()],
+              success: function(json) {
+                var events = json.rows.forEach(function(row) {
+                  var doc = row.value;
+                  uniqueEvents.push({
+                    id: doc._id,
+                    title: doc.title,
+                    className : cal_color,
+                    start: new Date(doc.start),
+                    end: new Date(doc.end),
+                    doc: doc});
+                });
+                uniqueEvents = uniqueBy(uniqueEvents, function(ev) {
+                  return ev.id;
+                });
+                add_user_cals(cals, uniqueEvents);
+              }
+            });
+          };
+          add_user_cals(allcals, []);
+        }});
+      },
+     eventClick: function(calEvent) {
+       current_event = calEvent;
+       refresh_current_event_ui();
+       $("#dialog").dialog('open');
+     },
+     eventDrop: function(calEvent) {
+       current_event = calEvent;
+       refresh_current_event_ui();
+       save_current_event(app);
+     },
+     dayClick: function(dayDate){
+       current_event = {};
+       current_event.start = new Date(dayDate.getFullYear(),dayDate.getMonth(),
+                dayDate.getDate(),new Date().getHours() + 1 % 24, 0,0,0);
+       current_event.end = 
+        new Date(current_event.start.getTime() + (1000 * 60 * 30));
+       refresh_current_event_ui();
+       $("#hosts").val($("#user").val());
+       $("#dialog").dialog('open');
+     },
+     viewDisplay: function(view) {
+       if (!ignoreViewEvent) {
+         $("#datepicker").datepicker('setDate', view.start);
+       }
+       ignoreViewEvent = false;
+     }
+		});
+		
+   $("#datepicker").datepicker({
+      onSelect: function(text, inst) {
+        ignoreViewEvent = true;
+          $('#calendar').fullCalendar('gotoDate', inst.selectedYear, inst.selectedMonth, inst.selectedDay);
+      },
+      onChangeMonthYear: function(year, month, inst) {
+        ignoreViewEvent = true;
+          $('#calendar').fullCalendar('gotoDate', year, month - 1);
+      }});
+          
+    $("#login").submit(function() {
+      var user = trim($("#user").val());
+      if (user != "") {
+        app.db.openDoc("cal-profile-" + user, {
+            success: function(doc) {
+                user_profile_doc = doc;
+                if (doc.othercals && doc.othercals.join) {
+                  // add other cals to display
+                  init_othercals(doc.othercals);
+                } else {
+                  // nothing to display
+                  $("#othercals").val("");
+                }
+                init_tagbox()
+                $('#calendar').fullCalendar('refetchEvents');
+              },
+            error: function(){              
+              // nothing to display
+              $("#othercals").val("");
+              init_tagbox()
+              $('#calendar').fullCalendar('refetchEvents');
+            }
+          });
+      } else {
+          // nothing to display
+          $("#othercals").val("");
+          init_tagbox()
+          $('#calendar').fullCalendar('refetchEvents');
+      }
+      return false;
+    });
+    
+    function init_othercals(cals) {
+      $("#othercals").val(cals.join(","));
+      // TODO display tags and calendars
+    };
+        
+    function init_tagbox() {
+      var options = {className: "tag"};
+      if (all_users != []) {
+      	options.applyToInput = function(input) {
+      	  var tagged = function(tag) {
+            other_cals.push(tag);
+            $('#calendar').fullCalendar('refetchEvents');
+            save_profile();
+          };
+			    $(input).autocomplete(all_users, {
+			      width: 200,
+			      tagged: tagged
+			    });
+			  }
+      }
+      $("#othercals").tagbox(options)
+    }
+    
+    init_tagbox();
+    
+    $("#event").submit(function() {
+      save_current_event(app);
+       $("#dialog").dialog('close');
+      return false;
+    });
+    
+    function save_profile() {
+      var user = trim($("#user").val());
+      if (user) {
+        user_profile_doc._id = "cal-profile-" + user;
+        user_profile_doc.othercals = other_cals;
+        app.db.saveDoc(user_profile_doc, {
+            success: function() {},
+            error: function(){}});
+      }
+    };
+    
+    $("#othercals").keyup(function() {
+					clearTimeout(this.refreshTimeout);
+					this.refreshTimeout = setTimeout(function() {
+              $('#calendar').fullCalendar('refetchEvents');
+					}, 300);
+    });
+      
+    // setup users type ahead
+    app.view("all_users",{
+      group: true,
+      success: function(json) {
+        all_users = json.rows.map(function(row) {
+          return row.key;
+        });
+        $(".addressable").autocomplete(all_users, {
+            multiple: true,
+            autoFill: true
+        });
+        $("#user").autocomplete(all_users, {
+            autoFill: true,
+            tagged : function() {
+              $("#login").submit();
+              $("#user").blur();
+            }
+        });
+      }
+    });
+    $("#login").blur(function() {
+      $("#lbutton").hide();
+    });    
+    $("#login").click(function() {
+      $('#calendar').fullCalendar('refetchEvents');
+    });
+  });
+  </script>
+</html>

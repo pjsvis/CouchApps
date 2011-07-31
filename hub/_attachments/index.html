@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Visibility</title>
+    <link rel="stylesheet" href="style/main.css" type="text/css">
+			 
+			<style type="text/css">
+			body{margin:0;padding:0;}
+			#nav{position:relative; top:0;left:0; width:100%;height:3em;background-color:black;color:white;}
+			#nav a{color:white;text-decoration:none;margin-left:1em;margin-top:1em;vertical-align:middle;}
+			#nav a:hover{color:orange;}			
+			</style>
+  </head>
+  <body>
+		<div id="nav"></div>
+    <div id="account"></div>
+		<!-- Put an empty href here to make sure it gets pushed -->
+		<a href="nav.html"></a>
+		
+    <h1>Generated CouchApp</h1>
+
+    <div id="profile"></div>
+    <div id="items"></div>
+
+    <div id="sidebar">
+      <p>Welcome to CouchApps</p>
+      <p>Here is a list of the CouchApps hosted on http://visibility.iriscouch.com</p>
+	  <ol>
+		<li><a href="http://visibility.iriscouch.com/_utils">Futon</a></li>			
+		<li><a href="http://visibility.iriscouch.com/hub/_design/hub/index.html">Home</a></li>
+		<li><a href="http://visibility.iriscouch.com/wiki/_design/tapir/wiki.html#FrontPage">Wiki</a></li>
+		<li><a href="http://visibility.iriscouch.com/toast/_design/toast/index.html">Toast</a></li>
+		<li><a href="http://visibility.iriscouch.com/sofa/_design/sofa/_list/post/post-page?startkey=%5B%22Another-New-Post%22%5D">Sofa</a></li>		
+		<li><a href="http://visibility.iriscouch.com/projector/_design/projector/index.html">Projector</a></li>
+		<li><a href="http://visibility.iriscouch.com/cal/_design/cal/index.html">Calendar</a></li> 
+		<li><a href="http://visibility.iriscouch.com/pages/_design/pages/_rewrite/page/index">Pages</a></li>
+		<li><a href="http://visibility.iriscouch.com/swinger/_design/swinger/index.html">Swinger</a></li>			
+	  </ol>
+    </div>
+	
+  <script src="vendor/couchapp/loader.js"></script>
+  <script type="text/javascript" charset="utf-8">
+		
+		// Load our menu
+		$('#nav').load('http://visibility.iriscouch.com/hub/_design/hub/nav.html');
+		
+		// Populate the CouchApp stuff
+    $.couch.app(function(app) {
+      $("#account").evently("account", app);
+      $("#profile").evently("profile", app);
+      $.evently.connect("#account","#profile", ["loggedIn","loggedOut"]);
+      $("#items").evently("items", app);
+    });
+  </script>
+	
+	</body>
+			
+</html>

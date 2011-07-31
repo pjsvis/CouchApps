@@ -1,0 +1,213 @@
+/* Ultimate 3 */
+
+html, body {
+	margin: 0px;
+	padding: 0px;
+	font-family: "Verdana", "Arial", sans-serif;
+}
+body {
+	background: #ddd;
+	overflow-y: scroll;
+}
+a {
+	color: #001A66;
+}
+a:hover {
+	text-decoration: none;
+}
+a img {
+	border: 0;
+	border: 0px;
+}
+h1 {
+	padding: 0px;
+	margin: 0px 10px 25px 10px;
+}
+button, input[type=submit] {
+	display: block;
+	padding: 5px;
+	
+	color: black;
+	background-color: #eeeeee;
+	background-image: url('gradient.png');
+	background-repeat: repeat-x;
+	border: 1px solid #001A66;
+	
+	text-decoration: none;
+	text-align: center;
+}
+button:hover, input[type=submit]:hover {
+	background-image: url('inverse.png');
+	background-repeat: repeat-x;
+	cursor: pointer;
+}
+button:active, input[type=submit]:active {
+	background-image: url('gradient.png');
+	background-repeat: repeat-x;
+	color: #001A66;
+}
+blockquote {
+	border-left: 4px solid gray;
+	padding: 2px 15px 2px 15px;
+	background-color: #eeeeee;
+}
+textarea, input[type=text], input[type=password], input[type=url], input[type=email] {
+	padding: 10px;
+	font-family: "Verdana", "Arial", sans-serif;
+	font-size: 12px;
+}
+#registerUsername, #loginUsername, input[type=password], input[type=url], input[type=email] {
+	width: 250px;
+	margin-right: 10px;
+}
+
+/* Top bar stuff. */
+#top {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	height: 30px;
+	
+	padding: 10px 10px 5px 10px;
+	border-bottom: 1px solid gray;
+	background-image: url('texture.png');
+	background-repeat: repeat;
+}
+#top h1 {
+	display: inline;
+	font-size: 20px;
+}
+#top a {
+	text-decoration: none;
+}
+#top a:hover {
+	color: #3366FF;
+}
+#credentials {
+	position: absolute;
+	top: 12px;
+	right: 5px;
+	width: 200px;
+	padding-right: 15px;
+	text-align: right;
+}
+#credentials a img {
+	float: right;
+	margin-top: 2px;
+	padding-left: 5px;
+}
+
+/* Sidebar/thread list stuff. */
+#threads {
+	position: fixed;
+	top: 76px;
+	bottom: 30px;
+	width: 19%;
+	margin: 0px 3% 0px 3%;
+	padding: 0px;
+	opacity: 0.9;
+	background-color: #eeeeee;
+	border: 1px solid #cccccc;
+	font-size: 12px;
+	overflow: auto;
+	z-index: 0;
+}
+#threads a:not(.navLink) {
+	display: block;
+	width: 100%;
+	border-bottom: 1px solid #cccccc;
+	color: black;
+	text-decoration: none;
+}
+#threads a:hover:not(.navLink) {
+	color: white;
+	background-color: #3366FF;
+}
+.selectedThread {
+	color: white;
+	background-color: #001A66;
+	background-repeat: repeat;
+	font-weight: bold;
+}
+#threads ul, #threads ul li{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+div.spacer {
+	margin: 0px 15px 0px 15px;
+	padding: 10px 0px 10px 0px;
+}
+#newThread {
+	text-align: center;
+	font-weight: bold;
+}
+#threadTitle {
+	width: 60%;
+	min-width: 400px;
+	max-width: 100%;
+	margin-bottom: 15px;
+	padding: 10px 9px;
+}
+
+/* Content/actual post stuff. */
+#content {
+	position: absolute;
+	top: 46px;
+	right: 0px;
+	width: 75%;
+	font-size: 12px;
+	overflow: auto;
+}
+#noselected {
+	width: 50%;
+	margin: 30% 25% 0% 25%;
+}
+.post, .reply {
+	clear: both;
+	margin: 30px 30px 30px 0px;
+	padding: 20px 15px 25px 15px;
+	background-color: #eeeeee;
+	border: 1px solid #cccccc;
+	opacity: 0.9;
+}
+.reply {
+	text-align: center;
+}
+.reply h1 {
+	text-align: left;
+}
+.reply textarea {
+	width: 60%;
+	height: 150px;
+	min-width: 400px;
+	max-width: 100%;
+}
+.reply input[type=submit] {
+	width: 120px;
+	margin: 15px auto 0px auto;
+}
+.user {
+	display: block;
+	float: left;
+	width: 120px;
+	margin: 0px 15px 0px 0px;
+	padding-bottom: 5px;
+	
+	color: black;
+	background-image: url('texture.png');
+	background-repeat: repeat;
+	text-align: center;
+	text-decoration: none;
+	overflow: hidden;
+}
+.user:hover {
+	color: white;
+	background: none;
+	background-color: #3366FF;
+}
+.signature {
+	clear: both;
+	display: hidden;
+}

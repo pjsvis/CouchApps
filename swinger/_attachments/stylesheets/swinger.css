@@ -1,0 +1,382 @@
+body {
+  background: #E7E7E7;
+}
+#container {
+  width: 100%;
+}
+#display {
+  background: #FFF;
+  overflow:hidden;
+}
+#footer {
+  clear:both;
+  background: #666;
+  color: #FFF;
+  width: 100%;
+  padding: 10px;
+  font-size: 11px;
+  text-align:left;
+  position: fixed;
+  bottom: 0px;
+}
+a:link, a:visited {
+  color: #4B89D0;
+}
+a:hover {
+  color: #305A89;
+}
+p.description {
+  line-height: 200%;
+  font-weight: normal;
+}
+p.description a:link, p.description a:visited {
+  color: #4B89D0;
+  font-weight:bold;
+}
+p.description a:hover {
+  color: #000;
+}
+input[type="text"], input[type="password"], textarea {
+  border: 1px solid #CCC;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+.header {
+  border-top: 1px solid #CCC;
+  height:20px;
+  padding: 6px;
+}
+.nav .sep {
+  float:left;
+  border-left: 1px solid #A5A5A5;
+  width: 1px;
+  height: 32px;
+  margin: 0px 10px;
+}
+.nav a.logo {
+  padding: 0px 10px;
+}
+.nav a.logo:hover {
+  background: none;
+}
+.nav a {
+  font-weight: bold;
+  color: #E7E7E7;
+}
+.nav .title {
+  float: left;
+  padding: 9px 8px 0px 8px;
+  color: #A9CCFA;
+  text-shadow: 0px 1px 1px #000;
+}
+.user-nav {
+  position: absolute;
+  font-size: 12px;
+  top: 10px;
+  right: 10px;
+  width: 200px;
+  text-align: right;
+  text-shadow: 0px 1px 1px #000;
+  color:#CCC;
+}
+.user-nav span {
+  padding: 0px 5px;
+}
+.user-nav a:link,
+.user-nav a:visited,
+#footer a:link,
+#footer a:visited {
+  color:#E7E7E7;
+  text-decoration:none;
+}
+.user-nav a:hover,
+#footer a:hover {
+  color: #FFF;
+}
+
+iframe {
+  margin: 10px;
+  width: 95%;
+  background: #FFF;
+}
+#navigation.header {
+  position: fixed;
+  bottom: 0px;
+  height: 40px;
+  width: 100%;
+  text-align:center;
+  padding: 4px 0px;
+}
+#navigation form {
+  display:inline;
+}
+#navigation .prev {
+  position: absolute;
+  left: 10px;
+}
+#navigation .next {
+  position: absolute;
+  right: 10px;
+}
+
+.modal, .inline-loader {
+  opacity: 0.7;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  padding: 40px;
+  color: #FFF;
+  text-align: center;
+}
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 400;
+}
+.inline-loader {
+  margin: 20px auto;
+  width: 40px;
+}
+.notification {
+  width: 100%;
+  text-align:center;
+  padding: 10px 0px;
+  font-size: 16px;
+  text-shadow: 0px 1px 1px #333;
+}
+
+#modal-loader, .inline-loader {
+  background: #000;
+}
+
+#modal-notification {
+  width: 300px;
+}
+#inline-notification {
+  position: relative;
+  border-bottom: 1px solid #FFF;
+}
+#modal-notification.success,
+.notification.success {
+  background: #118F3A;
+  color: #FFF;
+}
+
+#modal-notification.error,
+.notification.error {
+  background: #992A20;
+  color: #FFF;
+}
+#inline-notification button {
+  position: absolute;
+  top: 2px;
+  right: 25px;
+}
+#create {
+  padding: 20px;
+}
+#create input, #create button {
+  font-size: 16px;
+}
+#create .simple-form {
+  width: 100%
+}
+.presos {
+  margin-bottom: 25px;
+}
+.preso {
+  width: 300px;
+  height: 360px;
+  float:left;
+  margin: 10px;
+  cursor: pointer;
+}
+.preso .slide {
+  -webkit-box-shadow: 2px 2px 9px #666;
+  -moz-box-shadow: 2px 2px 9px #666;
+/*  border: 1px solid #666;*/
+}
+.preso.selected {
+  -webkit-box-shadow: 15px 15px 25px #333;
+  -moz-box-shadow: 15px 15px 25px #333;
+  border: 1px solid #333;
+}
+.preso .preso-meta {
+  clear: both;
+  color: #999;
+}
+.preso .preso-meta h4 {
+  color: #000;
+  font-size: 16px;
+  padding: 10px 0px;
+}
+.preso .preso-meta h4 span a {
+  float: right;
+}
+.submit {
+  float:right;
+}
+.slide-edit {
+  width: 100%;
+  color:#333;
+}
+.slide-sort-view {
+  width: 200px;
+  position: absolute;
+  height: 100%;
+  float:left;
+  border-right: 2px solid #999;
+}
+.slide-sort-view .header {
+  font-size: 14px;
+}
+.slide-sort {
+  width: 180px;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #AAA;
+}
+.slide-sort .slide {
+  margin: 10px;
+  position:relative;
+  -webkit-box-shadow: 0 0 15px #333;
+  -moz-box-shadow: 0 0 15px #333;
+}
+.slide-sort .slide.selected {
+  border: 2px solid #666;
+}
+.slide-sort .slide .slide-num {
+  position: absolute;
+  line-height: 100%;
+  font-family: Arial, sans-serif;
+  bottom: 10px;
+  right: 10px;
+  text-align: center;
+  min-width: 15px;
+  font-size: 12px;
+  color: #FFF;
+  background: #333;
+  padding: 4px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+.slide-sort .slide-placeholder {
+  width: auto;
+  background: #000;
+  height: 100px;
+  display:block;
+}
+.slide-edit-view {
+  width: 100%;
+  margin-left: 202px;
+  float: left;
+}
+.slide-form h3, h3.section {
+  font-size: 16px;
+  text-shadow: 0px 1px 1px #D2D2D2;
+  margin: 10px 0px;
+  padding: 0px 10px 10px;
+  border-bottom: 2px solid #999;
+}
+.slide-form {
+  width: 48%;
+  background: #AAA;
+  float: left;
+}
+.slide-form p {
+  width: auto;
+  padding: 0px 0px 10px;
+}
+.slide-form form {
+  width: auto;
+  margin: 20px;
+}
+.slide-form textarea {
+  width: 99%;
+  font-family: Inconsolata, Monaco, Monospace;
+  font-size: 14px;
+}
+.slide-form textarea.slide-content {
+  height: 300px;
+  font-size: 18px;
+}
+.slide-attachments {
+  margin: 20px;
+}
+.slide-attachment {
+  font-weight: normal;
+  padding: 4px 0px;
+  display:block;
+  cursor:pointer;
+}
+.slide-preview {
+  float: left;
+  padding: 20px;
+}
+.slide-preview .slide {
+  border: 1px solid #666;
+  -webkit-box-shadow: 0 0 15px #333;
+  -moz-box-shadow: 0 0 15px #333;
+}
+
+.slide-sort {
+  width: 200px;
+}
+.slide-sort .slide {
+  width: 180px;
+  height: 180px;
+}
+#display-instructions {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  padding: 10px 0px;
+  text-align:center;
+  line-height: 120%;
+  background: #FFFEDD;
+  border-bottom: 1px solid #CCC;
+}
+
+.slide {
+  float:left;
+  background: #FFF;
+}
+
+.simple-content {
+  background: #F1F1F1;
+}
+.simple-form {
+  min-width: 400px;
+}
+.simple-form h3 {
+  text-align:left;
+}
+.simple-form form {
+  padding: 20px;
+}
+.simple-form p {
+  padding: 10px 0px 0px;
+}
+.simple-form p label {
+  width: 150px;
+  padding: 8px 0px 0px;
+  float: left;
+}
+.simple-form input[type=text],
+.simple-form input[type=password] {
+  width: 250px;
+  font-size: 14px;
+}
+.simple-form .submit {
+  float:none;
+  margin-left: 150px;
+}
+
+.clear {
+  width: auto;
+  line-height: 0;
+  clear:both;
+}

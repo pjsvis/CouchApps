@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TD Tom Davies Reupholster</title>
+<link rel="stylesheet" type="text/css" href="styles/default.css" media="screen" />
+<script src="scripts/jquery-1.4.2.min.js"></script>
+<script src="scripts/couch.js"></script>
+<script>
+$(function() {
+	$('.huge').text('TD Tom Davies');
+	var db = new CouchDB('a1c2ca05b824e4a6e9ca145468e786757');
+        var docs = db.allDocs();
+	$.each(docs.rows, function(i, doc) {
+		$('ul').append('<li>' + doc.id + '</li>');
+	});
+});
+</script>
+<style>
+/* @description
+
+Gill Sans font stack
+
+Package: mmkit - HTML and CSS library
+URL: http://code.google.com/p/mmkit/
+License: http://www.opensource.org/licenses/mit-license.php
+
+*/
+body {font-family:"Gill Sans", GillSans, Calibri, Trebuchet, sans-serif;}
+select, input, button, textarea {font-family:"Gill Sans", GillSans, Calibri, Trebuchet, sans-serif; font-size: 1.05em; }
+h1, h2, h3, h4, h5, h6 {font-family:"Gill Sans", GillSans, Trebuchet, Calibri, sans-serif}
+</style>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24594130-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body class="crazy">
+  <div class="huge">fds</div>
+  <ul>
+<p style="font-family:Sylfaen;font-size:1.05em;">What we could do here is mark up the page with the Stack Layer stuff and then drop in all sorts of stuff. Then security trim it as appropriate using the Sylfaen font face.</p>
+<p style="font-family:Georgia;font-size:1.05em;">If we push SQL stuff into CouchDB then we could bring it back as SparkLines and all sorts of things using the Georgia font face.</p>
+<p>We need to have a look at building a small app and replicating it to China. That way we will be able to demonstrate that we can do this stuff using the Gill Sans font face.</p>
+<ul>
+<li><a href="AdminTest.html">Admin Test</a></li>
+<li><a href="LeOrderTest.html">Le Order Test</a></li>
+<li><a href="Admin.html">Admin</a></li>
+
+<li><a href="Factory.html">Factory</a></li>
+<li><a href="FrontEnd.html">FrontEnd</a></li>
+  </ul>
+  
+
+</body>
+</html> 

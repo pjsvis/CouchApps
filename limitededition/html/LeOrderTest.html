@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<head>
+        <title>TD Tom Davies SuperTool</title>
+        
+        <meta name="Keywords" content="">
+        <meta name="Description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<!-- jQuery Library + ALL jQuery Tools -->
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script type="text/javascript" src="scripts/jquery.tools.min.js"></script>
+		<script type="text/javascript" src="scripts/couch.js"></script>
+		<link href="stylescss.css" rel="stylesheet" type="text/css">
+		
+        <link rel="stylesheet" media="all" type="text/css" href="styles/stacklayout.css">
+        <!--[if lte IE 7]>
+        <link rel="stylesheet" media="all" type="text/css" href="../stacklayout_lte_ie7.css" />
+        <![endif]-->
+        <link rel="stylesheet" media="all" type="text/css" href="styles/skin_mockup.css">
+        <link rel="stylesheet" media="handheld, only screen and (max-width: 767px)" type="text/css" href="styles/mockup_mobile.css">
+
+	<style>
+	/* We need this to sort out the list items   */
+		li{margin-left:2em;}
+	</style>
+	
+	<style>
+		/* Gill Sans Font Stack */
+		body {font-family:"Gill Sans", GillSans, Calibri, Trebuchet, sans-serif;}
+		select, input, button, textarea {font-family:"Gill Sans", GillSans, Calibri, Trebuchet, sans-serif; font-size: 1.05em; }
+		h1, h2, h3, h4, h5, h6 {font-family:"Gill Sans", GillSans, Trebuchet, Calibri, sans-serif}
+	</style>
+	
+	<!--Custom style for stackContent -->
+	<style type="text/css">
+		#title{font-family:"Gill Sans", GillSans, Trebuchet, Calibri, sans-serif}
+
+		#content{background-color:black;padding-top:24px;}
+		#content .stackContent
+		{
+			/* Basic styling for frame panels */
+			font-family:"Gill Sans", GillSans, Calibri, Trebuchet, sans-serif;
+			font-size:1em;
+			background-color:white;
+			
+			/* Box Shadow Inner Ref: http://css-tricks.com/snippets/css/css-box-shadow/ */ 
+			-moz-box-shadow:inset 0 0 12px #000000;
+			-webkit-box-shadow:inset 0 0 12px #000000;
+			box-shadow:inset 0 0 12px #000000;
+		   
+			/* Rounded Corners Ref: http://jonraasch.com/blog/css-rounded-corners-in-all-browsers */
+			-moz-border-radius: 20px;
+			-webkit-border-radius: 20px;
+			-khtml-border-radius: 20px;
+			border-radius: 20px;
+		}
+		
+		#content .stackContent img{cursor:pointer;}
+		
+		.imageFull{width:900px;height:460px;}
+		.imageLarge{width:450px;height:230px;}
+		.imageMedium{width:300px;height:153px;}
+		.imageSmall{width:150px;height:77px;}
+		.imageThumb{width:75px;height:38px;}
+	</style>
+	<!-- Stylesheet for the overlay -->
+	<style>
+		/* the overlayed element */
+		.simple_overlay {
+		
+		/* must be initially hidden */
+		display:none;
+		
+		/* place overlay on top of other elements */
+		z-index:10000;
+		
+		/* styling */
+		background-color:#333;
+		
+		width:900px;	
+		min-height:460px;
+		border:1px solid #666;
+		
+		/* CSS3 styling for latest browsers */
+		-moz-box-shadow:0 0 90px 5px #000;
+		-webkit-box-shadow: 0 0 90px #000;	
+		}
+
+		/* close button positioned on upper right corner <img src="images/close.png"> */
+		.simple_overlay .close {
+			background-image:url(images/close.png);
+			position:absolute;
+			right:-15px;
+			top:-15px;
+			cursor:pointer;
+			height:35px;
+			width:35px;
+		}
+
+		/* Style for the Overlay Details*/
+
+		/* styling for elements inside overlay 
+			.details {
+				position:absolute;
+				top:15px;
+				right:15px;
+				font-size:11px;
+				color:#fff;
+				width:150px;
+			}
+			
+			.details h3 {
+				color:#aba;
+				font-size:15px;
+				margin:0 0 -10px 0;
+			}
+		*/
+		
+	</style>
+	<!-- Style for the Apple Overlay -->
+	<style>
+		/* the overlayed element */
+		.apple_overlay {
+			
+			/* initially overlay is hidden */
+			display:none;
+			
+			/* growing background image */
+			background-image:url(images/white.png);
+			
+			/* 
+				width after the growing animation finishes
+				height is automatically calculated
+			*/
+			width:900px;		
+			
+			/* some padding to layout nested elements nicely  */
+			padding:35px;
+
+			/* a little styling */	
+			font-size:11px;			
+		}
+
+
+		/* default close button positioned on upper right corner */
+		.apple_overlay .close {
+			background-image:url(images/close.png);
+			position:absolute; right:5px; top:5px;
+			cursor:pointer;
+			height:35px;
+			width:35px;
+		}	
+	</style>
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+		// select one or more elements to be overlay triggers
+		$("#content .stackContent a").overlay({
+			//effect: 'apple',
+			
+			onBeforeLoad: function() {
+			// grab wrapper element inside content
+			var wrap = this.getOverlay().find(".contentWrap");
+			// load the page specified in the trigger
+			wrap.load(this.getTrigger().attr("href"));
+			}
+		});
+		
+		$('#content .stackContent img').attr('class', 'imageMedium')
+		$('#Thumb').click(function(){$('#content .stackContent img').attr('class', 'imageThumb')});
+		$('#Small').click(function(){$('#content .stackContent img').attr('class', 'imageSmall')});
+		$('#Medium').click(function(){$('#content .stackContent img').attr('class', 'imageMedium')});
+		$('#Large').click(function(){$('#content .stackContent img').attr('class', 'imageLarge')});
+		$('#Full').click(function(){$('#content .stackContent img').attr('class', 'imageFull')});
+	});
+	
+	
+	</script>
+	<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24594130-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+    </head><body id="mockup1">
+<!-- Header Panel -->	
+<div style="position: fixed; top: 0px; left: 0px; height: 0px; width: 0px; z-index: 9999999;"><div style="position: fixed; top: 100%; height: 0px;"><div style="position: relative;"></div></div></div>
+        <div id="page">
+            <div class="stack">
+                <div id="header">
+                    <div id="title" class="stackContent"><span style="float:right;margin-right:0.3em;">Worldwide SuperTool</span><span style="float:left;">TD Tom Davies</span></div>
+					 <!-- Nav Menu  -->
+                    <ul id="nav" class="stackContent">					
+                        <li class="active"><a href="LeOrderTest.html">Home</a></li>
+						<li><a href="#" id="Thumb">My Orders</a></li>
+						<li><a href="#" id="Small">Ready to Wear</a></li>
+						<li><a href="#" id="Medium">Limited Edition</a></li>
+						<li><a href="#" id="Large">Custom</a></li>         
+						<li><a href="#" id="Full">Everything Else</a></li>
+                    </ul>
+                </div>
+<!-- We have two options: Load another page or get the info from hidden fields in the stackContent. For the moment we are using the first option but I think the second is better-->				
+				<!-- Overlay Panel -->
+<div class="apple_overlay" id="overlay">
+<div class='contentWrap'></div>
+	<!-- large image 
+	<img src='http://supertool.tdtomdavies.com/secure/HttpHandlers/DocumentView.ashx?documentID=76de672e-6f96-4fc3-a9d8-53c9727d019c' />
+	<br /><span style="font-size:large;">Here is some stuff about this image</span>
+	<div class="details">
+		<h3>Frame Name</h3>
+		<p>Just a few words about the Limited Edition frame.</p>
+	</div>
+	-->
+</div>
+
+				<!-- Frames Stack -->
+                <div id="content">
+                    <div id="column1" class="stack3of3">
+					<!-- Start Paste Here -->
+<div class='stackAuto'>
+	<div class='stackContent'>
+		<a href="LeDetail.html" rel="#overlay" style="text-decoration:none;">
+			<img src='images/DocumentView(0).png' width='300' height='155' />
+		</a>
+	</div>
+</div>
+<div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(1).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(2).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(3).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(4).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(5).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(6).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(7).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(8).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(9).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(10).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(11).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(12).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(13).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(14).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(15).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(16).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(17).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(18).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(19).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(20).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(21).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(22).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(23).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(24).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(25).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(26).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(27).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(28).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(29).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(30).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(31).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(32).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(33).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(34).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(35).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(36).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(37).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(38).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(39).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(40).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(41).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(42).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(43).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(44).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(45).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(46).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(47).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(48).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(49).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(50).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(51).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(52).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(53).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(54).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(55).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(56).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(57).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(58).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(59).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(60).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(61).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(62).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(63).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(64).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(65).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(66).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(67).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(68).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(69).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(70).png' width='300' height='155' /></div></div><div class='stackAuto'>
+<div class='stackContent'><img src='images/DocumentView(71).png' width='300' height='155' /></div></div>
+
+					<!-- End Paste Here -->
+                    </div>
+                    <div id="column2" class="stack1of4">
+					   
+                    
+                    </div>
+                </div>
+                <div id="footer">
+                    <div class="wrapper">
+                        <div class="stackAuto">
+                            <p class="stackContent">&copy; 2011 TD Tom Davies</p>
+                        </div>
+                        <div class="stackAuto">
+                            <a class="stackContent" href="http://www.stacklayout.com/mockups/mockup1.html#">License</a>
+                        </div>
+                        <div class="stackAuto">
+                            <a id="twitter" class="stackContent" href="http://www.stacklayout.com/mockups/mockup1.html#">Follow me on Twitter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+	
+<!-- overlayed element -->
+<div class="apple_overlay" id="overlay">
+	<!-- the external content is loaded inside this tag -->
+	<div class="contentWrap"></div>
+</div>
+
+		<script type="javascript">
+
+		$(function() {
+			// if the function argument is given to overlay,
+			// it is assumed to be the onBeforeLoad event listener
+			$("a[rel]").overlay({
+
+				mask: 'darkred',
+				effect: 'apple',
+
+				onBeforeLoad: function() {
+
+					// grab wrapper element inside content
+					var wrap = this.getOverlay().find(".contentWrap");
+
+					// load the page specified in the trigger
+					wrap.load(this.getTrigger().attr("href"));
+				}
+
+			});
+		});
+
+	</script>	
+	
+</body></html>

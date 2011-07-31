@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Komodo Project File - DO NOT EDIT -->
+<project id="6176f7cf-07e8-457b-975c-8fdb41cd0ba3" kpf_version="4" name="Calendar.kpf">
+<preference-set idref="6176f7cf-07e8-457b-975c-8fdb41cd0ba3">
+  <boolean id="import_live">1</boolean>
+</preference-set>
+</project>

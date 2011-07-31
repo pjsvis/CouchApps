@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<!-- saved from url=(0100)http://reupholster.iriscouch.com:5984/a1c2ca05b824e4a6e9ca145468e786757/_design/app/LeOrderTest.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<!-- saved from url=(0047)http://www.stacklayout.com/mockups/mockup1.html -->
+
+        <title>TD Tom Davies SuperTool</title>
+        
+        <meta name="Keywords" content="">
+        <meta name="Description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<!-- jQuery Library + ALL jQuery Tools -->
+		<script type="text/javascript" src="./TD Tom Davies SuperTool_files/jquery.min.js"></script>
+		<script type="text/javascript" src="./TD Tom Davies SuperTool_files/jquery.tools.min.js"></script>
+		<script type="text/javascript" src="./TD Tom Davies SuperTool_files/couch.js"></script>
+		<link href="./TD Tom Davies SuperTool_files/stylescss.css" rel="stylesheet" type="text/css">
+		
+        <link rel="stylesheet" media="all" type="text/css" href="./TD Tom Davies SuperTool_files/stacklayout.css">
+        <!--[if lte IE 7]>
+        <link rel="stylesheet" media="all" type="text/css" href="../stacklayout_lte_ie7.css" />
+        <![endif]-->
+        <link rel="stylesheet" media="all" type="text/css" href="./TD Tom Davies SuperTool_files/skin_mockup.css">
+        <link rel="stylesheet" media="handheld, only screen and (max-width: 767px)" type="text/css" href="./TD Tom Davies SuperTool_files/mockup_mobile.css">
+
+	<style>
+	/* We need this to sort out the list items   */
+		li{margin-left:2em;}
+	</style>
+	
+	<style>
+		/* Gill Sans Font Stack */
+		body {font-family:"Gill Sans", GillSans, Calibri, Trebuchet, sans-serif;}
+		select, input, button, textarea {font-family:"Gill Sans", GillSans, Calibri, Trebuchet, sans-serif; font-size: 1.05em; }
+		h1, h2, h3, h4, h5, h6 {font-family:"Gill Sans", GillSans, Trebuchet, Calibri, sans-serif}
+	</style>
+	
+	<!--Custom style for stackContent -->
+	<style type="text/css">
+		#title{font-family:"Gill Sans", GillSans, Trebuchet, Calibri, sans-serif}
+
+		#content{background-color:black;padding-top:24px;}
+		#content .stackContent
+		{
+			/* Basic styling for frame panels */
+			font-family:"Gill Sans", GillSans, Calibri, Trebuchet, sans-serif;
+			font-size:1em;
+			background-color:white;
+			
+			/* Box Shadow Inner Ref: http://css-tricks.com/snippets/css/css-box-shadow/ */ 
+			-moz-box-shadow:inset 0 0 12px #000000;
+			-webkit-box-shadow:inset 0 0 12px #000000;
+			box-shadow:inset 0 0 12px #000000;
+		   
+			/* Rounded Corners Ref: http://jonraasch.com/blog/css-rounded-corners-in-all-browsers */
+			-moz-border-radius: 20px;
+			-webkit-border-radius: 20px;
+			-khtml-border-radius: 20px;
+			border-radius: 20px;
+		}
+		
+		#content .stackContent img{cursor:pointer;}
+		
+		.imageFull{width:900px;height:460px;}
+		.imageMedium{width:300px;height:153px;}
+		.imageSmall{width:150px;height:77px;}
+		.imageThumb{width:75px;height:38px;}
+	</style>
+	<!-- Stylesheet for the overlay -->
+	<style>
+		/* the overlayed element */
+		.simple_overlay {
+		
+		/* must be initially hidden */
+		display:none;
+		
+		/* place overlay on top of other elements */
+		z-index:10000;
+		
+		/* styling */
+		background-color:#333;
+		
+		width:900px;	
+		min-height:460px;
+		border:1px solid #666;
+		
+		/* CSS3 styling for latest browsers */
+		-moz-box-shadow:0 0 90px 5px #000;
+		-webkit-box-shadow: 0 0 90px #000;	
+		}
+
+		/* close button positioned on upper right corner <img src="images/close.png"> */
+		.simple_overlay .close {
+			background-image:url(images/close.png);
+			position:absolute;
+			right:-15px;
+			top:-15px;
+			cursor:pointer;
+			height:35px;
+			width:35px;
+		}
+
+		/* Style for the Overlay Details*/
+
+		/* styling for elements inside overlay 
+			.details {
+				position:absolute;
+				top:15px;
+				right:15px;
+				font-size:11px;
+				color:#fff;
+				width:150px;
+			}
+			
+			.details h3 {
+				color:#aba;
+				font-size:15px;
+				margin:0 0 -10px 0;
+			}
+		*/
+		
+	</style>
+	<!-- Style for the Apple Overlay -->
+	<style>
+		/* the overlayed element */
+		.apple_overlay {
+			
+			/* initially overlay is hidden */
+			display:none;
+			
+			/* growing background image */
+			background-image:url(images/white.png);
+			
+			/* 
+				width after the growing animation finishes
+				height is automatically calculated
+			*/
+			width:900px;		
+			
+			/* some padding to layout nested elements nicely  */
+			padding:35px;
+
+			/* a little styling */	
+			font-size:11px;			
+		}
+
+
+		/* default close button positioned on upper right corner */
+		.apple_overlay .close {
+			background-image:url(images/close.png);
+			position:absolute; right:5px; top:5px;
+			cursor:pointer;
+			height:35px;
+			width:35px;
+		}	
+	</style>
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+		// select one or more elements to be overlay triggers
+		$("#content .stackContent a").overlay({
+			effect: 'apple',
+			
+			onBeforeLoad: function() {
+			// grab wrapper element inside content
+			var wrap = this.getOverlay().find(".contentWrap");
+			// load the page specified in the trigger
+			wrap.load(this.getTrigger().attr("href"));
+			}
+		});	
+		$('#content .stackContent img').attr('class', 'imageThumb')
+		
+	});
+	
+	
+	</script>
+    </head><body id="mockup1"><div style="position: fixed; top: 0px; left: 0px; height: 0px; width: 0px; z-index: 9999999; "><div style="position: fixed; top: 100%; height: 0px; "><div style="position: relative; "></div></div></div>
+<!-- Header Panel -->	
+<div style="position: fixed; top: 0px; left: 0px; height: 0px; width: 0px; z-index: 9999999;"><div style="position: fixed; top: 100%; height: 0px;"><div style="position: relative;"></div></div></div>
+        <div id="page">
+            <div class="stack">
+                <div id="header">
+                    <div id="title" class="stackContent"><span style="float:right;margin-right:0.3em;">Worldwide SuperTool</span><span style="float:left;">TD Tom Davies</span></div>
+					 <!-- Nav Menu  -->
+                    <ul id="nav" class="stackContent">					
+                        <li class="active"><a href="file:///C:/Users/pjs/Desktop/@Dev/jQuery/StackLayout/FrontEnd.htm">Home</a></li>
+						<li><a href="file:///C:/Users/pjs/Desktop/@Dev/jQuery/StackLayout/FrontEnd.htm">My Orders</a></li>
+						<li><a href="file:///C:/Users/pjs/Desktop/@Dev/jQuery/StackLayout/FrontEnd.htm">Ready to Wear</a></li>
+						<li><a href="file:///C:/Users/pjs/Desktop/@Dev/jQuery/StackLayout/FrontEnd.htm">Limited Edition</a></li>
+						<li><a href="file:///C:/Users/pjs/Desktop/@Dev/jQuery/StackLayout/FrontEnd.htm">Custom</a></li>         
+						<li><a href="file:///C:/Users/pjs/Desktop/@Dev/jQuery/StackLayout/FrontEnd.htm">Everything Else</a></li>
+						
+                    </ul>
+                </div>
+<!-- We have two options: Load another page or get the info from hidden fields in the stackContent. For the moment we are using the first option but I think the second is better-->				
+				<!-- Overlay Panel -->
+<div class="apple_overlay" id="overlay" style="background-image: none; top: 92.4px; left: 475px; position: fixed; z-index: 10000; display: none; "><a class="close"></a>
+<div class="contentWrap">
+
+
+        <title>TD Tom Davies SuperTool</title>
+		
+		
+		<div class="stackAuto">
+<div class="stackContent">
+<br><br>
+<h1>Limited Edition Model 870001</h1>
+<!-- We will come to this page with a frameId and get the relevant info from the database -->
+<img src="./TD Tom Davies SuperTool_files/DocumentView.ashx" rel="#overlay">
+</div>
+	<div style="font-family:arial;font-size:large;letter-spacing:0.5em;">
+		<p>23 of 50  remaining</p>
+	</div>
+	<div>
+	<br><br>
+	<select>
+	<option value="1" selected="">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4">4</option>
+	<option value="5">5</option>
+	</select>
+&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="button" value="Add to Cart">
+	</div>
+</div>
+</div>
+	<!-- large image 
+	<img src='http://supertool.tdtomdavies.com/secure/HttpHandlers/DocumentView.ashx?documentID=76de672e-6f96-4fc3-a9d8-53c9727d019c' />
+	<br /><span style="font-size:large;">Here is some stuff about this image</span>
+	<div class="details">
+		<h3>Frame Name</h3>
+		<p>Just a few words about the Limited Edition frame.</p>
+	</div>
+	-->
+</div>
+
+				<!-- Frames Stack -->
+                <div id="content">
+                    <div id="column1" class="stack3of3">
+					<!-- Start Paste Here -->
+<div class="stackAuto">
+<div class="stackContent">
+<a href="http://reupholster.iriscouch.com:5984/a1c2ca05b824e4a6e9ca145468e786757/_design/app/LeDetail.html" rel="#overlay" style="text-decoration: none; ">
+<img src="./TD Tom Davies SuperTool_files/DocumentView.ashx" width="300" height="155" class="imageThumb">
+</a>
+</div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(1).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(2).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(3).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(4).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(5).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(6).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(7).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(8).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(9).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(10).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(11).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(12).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(13).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(14).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(15).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(16).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(17).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(18).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(19).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(20).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(21).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(22).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(23).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(24).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(25).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(26).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(27).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(28).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(29).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(30).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(31).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(32).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(33).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(34).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(35).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(36).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(37).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(38).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(39).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(40).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(41).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(42).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(43).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(44).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(45).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(46).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(47).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(48).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(49).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(50).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(51).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(52).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(53).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(54).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(55).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(56).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(57).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(58).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(59).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(60).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(61).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(62).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(63).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(64).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(65).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(66).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(67).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(68).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(69).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(70).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div><div class="stackAuto">
+<div class="stackContent"><img src="./TD Tom Davies SuperTool_files/DocumentView(71).ashx" width="300" height="155" rel="#overlay" class="imageThumb"></div></div>
+
+
+					<!-- End Paste Here -->
+                    </div>
+                    <div id="column2" class="stack1of4">
+					   
+                    
+                    </div>
+                </div>
+                <div id="footer">
+                    <div class="wrapper">
+                        <div class="stackAuto">
+                            <p class="stackContent">© 2011 TD Tom Davies</p>
+                        </div>
+                        <div class="stackAuto">
+                            <a class="stackContent" href="http://www.stacklayout.com/mockups/mockup1.html#">License</a>
+                        </div>
+                        <div class="stackAuto">
+                            <a id="twitter" class="stackContent" href="http://www.stacklayout.com/mockups/mockup1.html#">Follow me on Twitter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+	
+<!-- overlayed element -->
+<div class="apple_overlay" id="overlay">
+	<!-- the external content is loaded inside this tag -->
+	<div class="contentWrap"></div>
+</div>
+
+		<script type="javascript">
+
+		$(function() {
+			// if the function argument is given to overlay,
+			// it is assumed to be the onBeforeLoad event listener
+			$("a[rel]").overlay({
+
+				mask: 'darkred',
+				effect: 'apple',
+
+				onBeforeLoad: function() {
+
+					// grab wrapper element inside content
+					var wrap = this.getOverlay().find(".contentWrap");
+
+					// load the page specified in the trigger
+					wrap.load(this.getTrigger().attr("href"));
+				}
+
+			});
+		});
+
+	</script>	
+	
+<img src="./TD Tom Davies SuperTool_files/white.png" style="border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; width: 0px; top: 251px; left: 97.5px; z-index: 9999; position: absolute; display: block; "></body></html>

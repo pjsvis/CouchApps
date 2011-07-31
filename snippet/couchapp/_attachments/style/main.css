@@ -1,0 +1,85 @@
+#tagCloud {
+    width:400px; 
+    overflow:auto; font-size:70%; font-family:arial;
+    font-family:"Lucida Grande",Helvetica,sans-serif;
+    background: url(../images/bg.png) ;
+}
+
+#searchForm {
+    background: #CCCCCC;
+}
+
+#searchText {
+    background: white;
+}
+
+#tagList {
+     /*margin:0; padding:0;*/
+}
+
+#tagList li {
+    list-style-type:none; 
+    display:inline-table;
+    margin:10px 10px 10px 0px;
+}
+
+
+#tagList li a {
+    text-decoration:none; color:#ffffff;
+}
+
+
+div.sep {
+    width: 100%; height: 30px;
+    background:#FFFFFF;
+}
+
+
+.roundedcornr_box_618268 {
+    background: #CCCCCC;
+}
+.roundedcornr_top_618268 div {
+    background: url(../images/roundedcornr_618268_tl.png) no-repeat top left;
+}
+
+.roundedcornr_top_618268 {
+    background: url(../images/roundedcornr_618268_tr.png) no-repeat top right;
+}
+
+.roundedcornr_bottom_618268 div {
+    background: url(../images/roundedcornr_618268_bl.png) no-repeat bottom left;
+}
+
+.roundedcornr_bottom_618268 {
+    background: url(../images/roundedcornr_618268_br.png) no-repeat bottom right;
+}
+
+.roundedcornr_top_618268 div, .roundedcornr_top_618268, .roundedcornr_bottom_618268 div, .roundedcornr_bottom_618268 {
+    width: 100%; height: 30px; font-size: 1px;
+}
+
+#snippetList a {
+    text-decoration:none; color:#ffffff;
+}
+
+#snippetList .snippetTitle {
+    text-decoration:none;  padding: 2px 2px 0 35px;
+}
+
+#snippetList .comment, .tags, .codeSection {
+    text-decoration:none;  padding: 10px 20px 0 35px;
+}
+
+#icons {
+    width:400px; 
+    overflow:auto; 
+    margin-left: 330px;
+    margin-top: 15px;
+}
+
+#icons li,a{
+    list-style-type:none; 
+    text-decoration:none; color:#ffffff;
+}
+
+

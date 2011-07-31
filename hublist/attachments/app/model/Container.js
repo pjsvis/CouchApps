@@ -1,0 +1,265 @@
+/**
+ * The Container model is designed to hold instances of {@link HL.model.Container} 
+ * and {@link HL.model.Task} models. Use it directly to create Folders and Lists by 
+ * setting its {@link HL.model.Container#type} field or extend it to support other 
+ * speciality types of container-like models.
+ *
+ * Notes  
+ * 
+ * - Folders can hold both folders and lists, while lists can only hold tasks.
+ *
+ * - Container models participate in the {@link HL.view.container.Tree} and 
+ * will be decorated as needed by Ext.data.NodeInterface.
+ */
+Ext.define('HL.model.Container', {
+    extend: 'Ext.data.Model',
+    idProperty: '_id',
+    
+    requires: ['HL.proxy.Container'],
+    proxy: 'container',
+        
+    fields: [
+        /**
+         * @property {string} name label displayed in the
+         * UI for this container.
+         */
+        {name: 'name', type: 'string', silentRelay: false},
+        /**
+         * @property {string} type type of container this
+         * instance represents. list (default) and folder
+         * are currently supported.
+         */
+        {name: 'type', type: 'string', defaultValue: 'list'},
+        /**
+         * @property {auto} _rev _rev sequence maintained by CouchDB,
+         * plays a big role in replication and conflict resolution.
+         */
+        {name: '_rev', type: 'auto', defaultValue: null},  
+        /**
+         * @property {string} parentId {@link HL.model.Container#_id}
+         * of this container's parent in the container hierarchy.
+         */              
+        {name: 'parentId',  type: 'string', defaultValue: 'rootcontainer'},
+        /**
+         * @property {array} childIds list of id 
+         * values reprepesenting this container's children. 
+         * can either be container {@link HL.model.Task#_id}
+         * values or {@link HL.model.Container#_id}.
+         */  
+        {name: 'childIds', type: 'auto', defaultValue:[]},       
+        /**
+         * @property {auto} checked maintains the state of the checkbox
+         * that can be shown next to this container in the UI. currently not
+         * being used for containers.
+         */          
+        {name: 'checked', type: 'auto', defaultValue: null},
+        {name: 'index', type: 'int', defaultValue: null, persist: false}, // caused problems when not explicity set to false
+        {name: 'depth', type: 'int', defaultValue: 0, persist: false}, // caused problems when not explicity set to false                    
+        /**
+         * @property {array} ancestors list of container {@link HL.model.Task#_id}
+         * values that are ancestors to this container in the hierarchy. 
+         * Used when querying CouchDB to get a list of all containers
+         * that descend from a specific container in the hierarchy.
+         */          
+        {name: 'ancestors', type: 'auto', defaultValue: ['rootcontainer'], convert: function(value, record) {
+            if(record.data.ancestors && (JSON.stringify(record.data.ancestors) === JSON.stringify(value)) ) {
+                return record.data.ancestors;
+            } else {
+                return value;
+            }
+        }},            
+        {name: 'leaf', type: 'bool', defaultValue: false, persist: false, convert: function(value, record) {
+            // this is needed because right now when Ext.NodeInterface.decorate runs
+            // it doesn't check to see if a node has children before giving it a value of false
+            if(record.data.type === 'list') {
+                return true;
+            } else {
+                return false;
+            }
+        }},
+        {name: 'expandable', type: 'bool', defaultValue: false, persist: false, convert: function(value, record) {
+            if( (record.data.childIds && record.data.childIds.length > 0) && record.data.type === 'folder' ) {
+                return true;
+            } else {
+                return false;
+            }        
+        }},
+        /**
+         * @property {string} _id unique identifier for this container.
+         * this value is generated client side using a convert 
+         * function.
+         */                 
+        {name: '_id', type: 'string', 
+            convert: function(value, record) {
+                // make sure we don't create a uuid for existing containers
+                // loaded from couchdb
+                if(value !== '') {
+                    return value;
+                }                 
+                // make sure we don't create a uuid for the auto generated
+                // default root container node or existing containers loaded from server
+                // rootcontainer value is used in the ajax proxy url when loading initial data
+                if(record.data.id === 'rootcontainer') {
+                    return record.data.id;
+                }
+                // UUID generator found on stackoverflow 
+                // http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
+                var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+                    return v.toString(16);
+                });
+                
+                return uuid;
+            }
+        }
+    ],
+    
+    /**
+     * Calls parent contstructor and also sets up events 
+     * that will become available when this instance is
+     * decorated by Ext.data.NodeInterface. Setting up the
+     * events ahead of time allows us to setup
+     * listeners before the instance is actually decorated.
+     */
+    constructor: function() {
+        this.addEvents('beforeappend', 'beforeexpand', 'beforeinsert', 'beforeremove', 'append', 'insert', 'remove');
+        return this.callParent(arguments);
+    },
+    
+    /**
+     * Adds the {@link HL.model.Container#_id} of a container
+     * node to a specific index position in the 
+     * {@link HL.model.Container#childIds} field of this container 
+     * if it's not already there and updates the childIds field.
+     * @param {Container} childNode container node to add
+     * @param {Number} childIndex index position of the container 
+     * node within childNodes 
+     */
+    addChildId: function(childNode, childIndex) {
+        childIndex = childIndex || this.indexOf(childNode);
+        var existingChildIndex = this.data.childIds.indexOf(childNode.getId());
+        if(existingChildIndex !== childIndex) {
+            var kids = this.data.childIds.slice(0);
+            kids.splice(childIndex, 0, childNode.getId())
+            this.set('childIds', kids);   // set tracks modifications
+        }    
+    },
+    
+    /**
+     * @private
+     * Overrides {@link Ext.data.Model#afterEdit}
+     * to fire an event for each field that has
+     * been modified. The event name is the name of the
+     * field with world modified appened to it: fieldnamemodified.
+     * The event params are (model, newValue, oldValue).
+     */
+    afterEdit: function() {
+        var me = this;
+        Ext.Object.each(me.modified, function(key, oldValue, self) {
+            // make sure we only fire this once
+            // when we have an old value
+            if(oldValue) {
+                me.fireEvent(key+'modified', me, me.get(key), oldValue);
+            }
+        });
+        this.callParent(arguments);
+    },
+
+    /**
+     * Synchronizes the persistent fields of this model with
+     * fields of the same name in the passed in model.
+     *
+     * Keeps persistent fields of a single 
+     * entity in sync even though it's being represented by more 
+     * than one instance in the application.
+     *
+     * Example: When a container is selected in the {@link HL.view.ContainerTree}
+     * we use it's raw data to make a new {@link HL.model.Task} instance
+     * which becomes the root node of a {@link HL.view.TaskTree}.
+     * Whenever a change is made to either instance we run this method to
+     * make the persistente fields always stay in sync so we never run into
+     * conflicts when we save/load data from the server.
+     *
+     * @param {Model} relayNode the data model to sync with
+     */
+    relayFields: function(relayNode) {
+        var me = this;
+        var relayFields = me.fields.filter('persist', true);
+        
+        relayFields.each(function(field, fieldIndex, fieldCount) {
+            if(field.name in relayNode[relayNode.persistenceProperty]) {
+                var silent = typeof field.silentRelay !== 'undefined' ? field.silentRelay : true;
+                if(silent) {
+                    relayNode[relayNode.persistenceProperty][field.name] = me[me.persistenceProperty][field.name];
+                } else {
+                    relayNode.set(field.name, me[me.persistenceProperty][field.name]);
+                    var changes = relayNode.getChanges();
+                    // if this field is the only thing that's changed then
+                    // it's safe to silently commit the change
+                    if(Ext.Object.getKeys(changes).length === 1) {
+                        relayNode.commit(true);
+                    }
+                }
+            }
+        });
+    },
+    
+    /**
+     * Removes the {@link HL.model.Container#_id} of a container node from this
+     * container's {@link HL.model.Container#childIds} and updates the childIds field.
+     * @param {Container} removedNode container node to remove
+     */    
+    removeChildId: function(removedNode) {
+        var childIndex = this.data.childIds.indexOf(removedNode.getId());
+        if(childIndex !== -1) {
+            var kids = this.data.childIds.slice(0);
+            kids.splice(childIndex, 1);
+            this.set('childIds', kids);
+        }
+    },
+    
+    /**
+     * Removes all of this container's {@link HL.model.Container#ancestors}
+     * and sets the field to an empty array.
+     */
+    removeAncestors: function() {
+        this.get('ancestors').length = 0;
+        // this makes the field modified
+        this.set('ancestors', []);
+    },
+    
+    /**
+     * Trawls through this container's parentNodes
+     * and captures the id of each node along the way
+     * to add to this models {@link HL.model.Container#ancestors}. 
+     * Then updates the ancestors field.
+     */
+    updateAncestors: function() {
+        var ancestors = [this.getId()];
+        var parent = this;
+        while (parent.parentNode) {
+            parent = parent.parentNode;
+            ancestors.push(parent.getId());
+        }
+        
+        this.set('ancestors', ancestors); 
+    },
+            
+    listeners: {
+        append: function(node, appendedNode, childIndex) {
+            node.addChildId(appendedNode, childIndex);
+            appendedNode.updateAncestors();
+        },
+        insert: function(node, childNode, refNode) {
+            node.addChildId(childNode);
+            childNode.updateAncestors();
+        },
+        namemodified: function(model, newValue, oldValue) {
+            var pause = '';
+        },
+        remove: function(node, removedNode) {
+            node.removeChildId(removedNode);
+        }                
+    }      
+
+});

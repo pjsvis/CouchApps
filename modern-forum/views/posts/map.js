@@ -1,0 +1,1 @@
+function(doc) { if (doc.type && doc.type === 'post') { emit(doc.id, { content: doc.content, thread_id: doc.thread_id, user_id: doc.user_id } ); } }

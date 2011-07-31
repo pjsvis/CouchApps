@@ -1,0 +1,1 @@
+function(doc) { if (doc.type && doc.type === 'thread') { emit(doc.id, doc.title); } }

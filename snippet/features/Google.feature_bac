@@ -1,0 +1,10 @@
+Feature: Google
+    In order to test a remote site
+    I surf to google
+    And take a look
+
+    Scenario: Trying Google
+        When I go to the homepage
+		     And I fill in "Aslak Hellesoy" for the field named "q"
+		     And I press "btnG"
+		     Then I should see "aslakhellesoy"

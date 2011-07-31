@@ -1,0 +1,25 @@
+<div id="display-instructions" style="display:none;">
+  Hey! You're watching "<%= preso.attributes.name %>", a presentation by <%= preso.attributes.author %>.<br />
+  Use the left and right arrow keys to navigate or press space bar to skip slides.
+</div>
+<div id="display" rel="<%= preso.id() %>">
+  <div id="slides">
+  <% $.each(preso.attributes.slides, function(i, slide) { %>
+    <% if (slide) { %>
+    <div class="slide active <%= slide.theme %>" id="slide-<%= slide.position %>" style="<%= slide.additional_css %>">
+      <div class="content"><%= slide.content_html %></div>
+    </div>
+    <% } %>
+  <% }); %>
+  </div>
+</div>
+<div id="navigation" class="header" style="display:none;">
+  <button class="prev">Previous</button>
+  <button class="next">Next</button>
+  <div class="jump">
+    <form action="#/preso/<%= preso.id() %>/jump" method="post">
+      <input type="text" size="3" name="num" class="jump-input" /> of <%= preso.attributes.slides.length %>
+      <button type="submit" class="default">Go!</button>
+    </form>
+  </div>
+</div>

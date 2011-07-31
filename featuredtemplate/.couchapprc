@@ -1,0 +1,8 @@
+{
+"env":{
+	"default" :{
+		"db" : "http://pjstarifa:tharsis12@visibility.iriscouch.com/featuredtemplate"
+	}
+}
+
+}

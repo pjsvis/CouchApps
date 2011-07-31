@@ -1,0 +1,136 @@
+/* TODO: Convert This Into Proper UIs or a Theme using SASS and Compass */
+
+
+/*****************************/
+/*   OSX Style Folder Tree   */
+/*****************************/
+
+#containerTreePanel .x-panel-body {
+    background-color: #DAE4EA; /* #DEE4EA */
+}
+
+/* Replaces default tree node yellow 
+   folder icon with an OSX style one
+*/
+#containerTreePanel .x-tree-icon-parent {
+    background-image: url("images/icon-fldr-default-closed.png");
+}
+
+/* This is the open state of the yellow
+   folder icon.
+*/
+#containerTreePanel .x-grid-tree-node-expanded .x-tree-icon-parent {
+    background-image: url("images/icon-fldr-default-closed.png");
+    /* background-image: url("images/icon-fldr-default-open.png"); */ 
+    padding-top: 1px;
+}
+
+/* Replaces the default tree node leaf
+   icon with Hub List list icon
+*/
+#containerTreePanel .x-tree-icon-leaf {
+    background-image: url("images/icon-sdbar-list.png");
+    width: 14px;
+}
+
+/* Replaces tree arrows */
+.x-tree-arrows .x-tree-elbow-plus, .x-tree-arrows .x-tree-elbow-minus, .x-tree-arrows .x-tree-elbow-end-plus, .x-tree-arrows .x-tree-elbow-end-minus {
+    background-image: url("images/icon-task-arrows.png");
+}
+/* Positions tree arrow */
+.x-tree-arrows .x-grid-tree-node-expanded .x-tree-elbow-plus, .x-tree-arrows .x-grid-tree-node-expanded .x-tree-elbow-end-plus,
+.x-tree-arrows .x-grid-tree-node-expanded .x-tree-expander-over .x-tree-elbow-plus,
+.x-tree-arrows .x-grid-tree-node-expanded .x-tree-expander-over .x-tree-elbow-end-plus {
+    background-position: 4px 6px;
+}
+
+/* Positions tree arrow */
+.x-tree-arrows .x-tree-elbow-plus, .x-tree-arrows .x-tree-elbow-end-plus,
+.x-tree-arrows .x-tree-expander-over .x-tree-elbow-plus, .x-tree-arrows .x-tree-expander-over .x-tree-elbow-end-plus {
+    background-position: -11px 5px;    
+}
+
+/* Tree node height */
+#containerTreePanel .x-grid-row {
+    line-height: 20px;
+}
+
+/* Tree node font styles */
+#containerTreePanel .x-grid-cell-inner {
+	font-family: "Lucida Grande", Arial;
+	font-size: 10px;
+	color: #000000;
+	letter-spacing: 0.3px;
+	text-shadow: 1px 1px 1px #E2E2E2;
+}
+
+/* Gets rid of node hover background coloring */
+#containerTreePanel .x-grid-row-over .x-grid-cell,
+#containerTreePanel .x-grid-row-over .x-grid-rowwrap-div {
+    border-color: transparent;
+    background-color: transparent;
+}
+
+/* Tree node selected background */
+#containerTreePanel .x-grid-row-selected .x-grid-cell,
+#containerTreePanel .x-grid-row-selected .x-grid-rowwrap-div {
+
+}
+
+#containerTreePanel .x-grid-row-focused .x-grid-cell,
+#containerTreePanel .x-grid-row-focused .x-grid-rowwrap-div {
+
+}
+
+/* Tree node spacing */
+#containerTreePanel .x-grid-row .x-grid-cell-inner {
+    line-height: 16px;
+    padding-bottom: 3px;
+    margin-bottom: 2px;
+}
+
+#containerTreePanel .x-tree-icon {
+    margin-right: 6px;
+}
+
+
+/*****************************/
+/*        Tasks Tree         */
+/*****************************/
+
+#taskTreePanel .x-tree-icon-leaf {
+    background-image: none;
+    width: 0px;
+}
+
+#taskTreePanel .x-tree-icon-parent {
+    background-image: none;
+    width: 0px;
+}
+
+#taskTreePanel .x-grid-cell-inner {
+    font-family: Arial;
+	font-size: 13px;
+	color: #3E3E3E;
+	letter-spacing: 0.3px;
+    text-shadow:rgba(0,0,0,0.01) 0 0 0;
+}
+
+#taskTreePanel .x-grid-row .x-grid-cell-inner {
+    height: 25px;
+}
+
+#taskTreePanel .x-tree-checkbox {
+    margin-right: 8px;
+}
+
+#taskTreePanel .x-gecko .x-tree-panel .x-grid-row .x-grid-cell-inner {
+    line-height: 14px;
+}
+
+/* Gets rid of node hover background coloring */
+#taskTreePanel .x-grid-row-over .x-grid-cell,
+#taskTreePanel .x-grid-row-over .x-grid-rowwrap-div {
+    border-color: transparent;
+    background-color: transparent;
+}
